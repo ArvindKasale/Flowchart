@@ -1,0 +1,16 @@
+
+<head>
+	<%=javascript_include_tag 'jquery','jrails'%>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		alert("REady");
+	   $("#new_category").submit(function(){
+	   	alert("Hello to you!!");
+	   
+	  });
+	});
+	</script>
+</head>
+<div id="inline">
+	<%=render :partial=> "partials/new", :object=> @category%>
+</div>

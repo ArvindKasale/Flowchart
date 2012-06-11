@@ -1,0 +1,6 @@
+page[:panel2_title].replace_html "New Blueprint" 
+page[:panel2].replace_html render :partial=> 'partials/blueprint/new'
+page.replace_html "blueprint-panel", :partial=>"partials/set_blueprint"
+page[:desktopNav].replace_html "Blueprint Deleted"
+
+

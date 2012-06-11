@@ -1,0 +1,74 @@
+<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'%>
+
+<%= javascript_include_tag 'serializelist' %>
+<%= javascript_include_tag 'nestedsortables' %>
+<script type="text/javascript" charset="utf-8">
+	
+	jQuery.noConflict();
+	var $j=jQuery;
+	$j(document).ready(function() {
+		$j('ul#tree').nestedSortable({	
+						disableNesting: 'no-nest',
+						forcePlaceholderSize: true,
+						handle: 'div',
+						items: 'li',
+						opacity: .6,
+						placeholder: 'placeholder',
+						tabSize: 5,
+						tolerance: 'pointer',
+						toleranceElement: '> div'
+					});
+					
+		    $j('#status').hide();
+		    $j("#save").click(function(){
+		    	var rootCount=$j('#tree > li').length;
+		    	if(rootCount<=1)
+		    	{
+		    	var mylist = $j('#tree').serializelist();
+		    	$j.post("/categories/array", mylist);
+				//$j.post("/categories/update_graph");
+				$j.ajax(
+					{
+						url: 'show_graph',
+						success: function(data){$j("#mainPanel").html(data)},
+						failure: function(){alert("Failed to get any response from"+url);}
+					});
+					
+				$j.ajax(
+					{
+						url: 'show_tree',
+						success: function(data){$j("#files-panel").html(data)},
+						failure: function(){alert("Failed to get any response from"+url);}
+					}
+				);
+				return false;
+				}
+				else
+				{
+					alert("Multiple Root Elements Detected. Select only one root in tree view."); 
+				}	
+		    });
+		   $j("#new").click(function()
+		    {
+		      	if ($j(this).val()=="New")
+		   		$j("#new").val("Cancel");
+		       	else
+		    	$j(this).val("New");
+		    	    	
+		       	$j("#inline").toggle();
+		    	$j("#save").toggle();
+		   });
+		   
+		 
+	});
+	
+	
+	</script>
+<div>
+	 <%=submit_tag "Rearrange Graph", :type =>'button', :id =>"save" %>&nbsp;&nbsp;
+</div>
+<ul id="tree">
+	<%= render :partial => 'partials/pretree', :object=> @root %>
+</ul>
+

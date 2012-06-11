@@ -1,0 +1,71 @@
+ puts"#############************************################*****************"
+      puts vision_category
+      $temp_vision=vision_category.dup
+      vision_category.count.times do |i|
+      puts "the value of i"
+      puts i
+      
+      if(vision_category[i].leaf?)
+        vision_category[i].parent.progress=0
+        puts vision_category[i].name
+        puts vision_category[i].parent_id
+        puts "count="
+        puts vision_category.count
+       
+        siblings=vision_category[i].self_and_siblings
+        puts "Siblings are"
+        puts siblings.count
+            siblings.count.times do |j|
+              vision_category[i].parent.progress+=(siblings[j].progress) 
+              puts siblings[j].progress
+            end
+            vision_category[i].parent.progress/=siblings.count
+            vision_category[i].parent.save
+            puts vision_category[i].parent.progress
+            puts vision_category[i].progress
+           
+            $temp_vision.delete(vision_category[i])
+            puts "*************************************"
+            puts $temp_vision.count
+            puts $temp_vision
+            puts "*************************************"
+      end
+    end
+    puts "Before Calling the function again"
+    puts vision_category
+    $temp_vision.count.times do |i|
+      puts $temp_vision[i].name
+      puts $temp_vision[i].leaf?
+      puts $temp_vision[i].leaves
+    end
+    if($temp_vision.count>1)
+    calculate_progress($temp_vision)
+    end
+    
+    
+    #####################################################################
+    def calculate_progress(vision_category)
+   puts"#############************************################*****************"
+      puts vision_category
+      vision_category.count.times do |i|
+      
+      if(vision_category[i].leaf?)
+        vision_category[i].parent.progress=0
+       
+        siblings=vision_category[i].self_and_siblings
+       
+            siblings.count.times do |j|
+              vision_category[i].parent.progress+=(siblings[j].progress) 
+              puts siblings[j].progress
+            end
+            vision_category[i].parent.progress/=siblings.count
+            vision_category[i].parent.save
+            puts vision_category[i].parent.progress
+            puts vision_category[i].progress
+            calc_parent_prog(i,vision_category)
+       end
+    end
+end
+    
+    
+    

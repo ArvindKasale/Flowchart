@@ -1,0 +1,81 @@
+<!DOCTYPE >
+<html>
+	<head>
+		<title>Strategy Map</title>
+		<%= stylesheet_link_tag 'Content','Core','Layout','Dock','Window','Tabs'%> <!--[if IE]>
+
+		<%= javascript_include_tag "excanvas.compiled"%>
+		<![endif]-->
+		<!--MOCHAUI-->
+		<%= javascript_include_tag "mootools-1.2.4-core-yc.js","mootools-1.2.4-more-yc.js"%>
+		<%= javascript_include_tag "Core.js","Layout.js","Dock.js"%>
+		<%= javascript_include_tag "Window.js","Modal.js","Tabs.js","mocha-init.js"%>
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js' %>
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'%>
+		<%= javascript_include_tag 'jrails'%>
+		<%= javascript_include_tag 'serializelist' %>
+		<%= javascript_include_tag 'nestedsortables' %>
+		<%= javascript_include_tag 'jit-yc.js'%> <!--<%= javascript_include_tag 'jquery.tooltip','jquery.bgiframe.js','jquery.dimensions.js','chili-1.7.pack.js' %>
+		-->
+		<%= javascript_include_tag 'example1'%>
+		<script type="text/javascript" charset="utf-8">
+			jQuery.noConflict();
+			var $j = jQuery;
+			selectedNode = null;
+			nodeArray = new Array();
+			nodeHistory = new Array();
+			var canvasHeight = 520;
+			var canvasWidth = 800;
+			var animDuration = 800;
+
+			function deleteMap()
+			{
+			$j.ajax({url:'/master_maps/destroy_master_map',
+			success: function(){}});
+			}</script>
+		<!--MOCHAUI-->
+	</head>
+	<body>
+		<div id="desktop">
+			<div id="desktopHeader">
+				<div id="desktopTitlebarWrapper">
+					<div id="desktopTitlebar">
+						<h1 class="applicationTitle">Mocha UI</h1>
+						<h2 class="tagline"><span class="taglineEm">Strategy Map</span></h2>
+						<div id="topNav">
+							<ul class="menu-right">
+								<li>
+									Welcome <%=findCurrentUser(session[:user_id])%>.
+								</li>
+								<li>
+									<%=link_to 'Sign Out', :action=>:logout, :controller=> :admin%>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="desktopNavbar">
+					<%=link_to "New/Open", :action=>:select_action, :controller=>:master_maps%>
+					<!--
+					<input type="button" id="newMapLinkCheck" value="New" />
+					<input type="button" id="openMapLinkCheck" value="Open" />
+					<input type="button" id="deleteMapLinkCheck" onclick="deleteMap()" value="Delete" />
+					-->
+					<div id="desktopNav" ></div>
+				</div><!-- desktopHeader end -->
+				<div id="dockWrapper">
+					<div id="dock">
+						<div id="dockPlacement"></div>
+						<div id="dockAutoHide"></div>
+						<div id="dockSort">
+							<div id="dockClear" class="clear"></div>
+						</div>
+					</div>
+				</div>
+				<div id="pageWrapper"></div>
+				<div id="desktopFooterWrapper">
+					<div id="desktopFooter"></div>
+				</div>
+			</div><!-- desktop end -->
+	</body>
+</html>

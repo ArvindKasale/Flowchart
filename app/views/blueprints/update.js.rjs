@@ -1,0 +1,3 @@
+page[:desktopNav].replace_html "Category Edited."
+page[:mainPanel].replace_html render :partial=> 'partials/showgraph'
+page.replace_html "blueprint-panel", :partial=>'partials/set_blueprint'

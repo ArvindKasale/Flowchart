@@ -1,0 +1,2 @@
+page[:panel2_title].replace_html "Edit Blueprint"
+page[:panel2].replace_html (render :partial=>"partials/blueprint/edit", :object=>@blueprint)

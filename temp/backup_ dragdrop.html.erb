@@ -1,0 +1,78 @@
+<% content_for :head do -%>
+	
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'%>
+	<%= javascript_include_tag 'serializelist', :cache => true %>
+	<%= javascript_include_tag 'nestedsortables', :cache => true %>
+	
+	
+	<script type="text/javascript" charset="utf-8">
+	
+	jQuery.noConflict();
+	var $j=jQuery;
+	$j(document).ready(function() {
+		$j('ul#tree').nestedSortable({	
+						disableNesting: 'no-nest',
+						forcePlaceholderSize: true,
+						handle: 'div',
+						items: 'li',
+						opacity: .6,
+						placeholder: 'placeholder',
+						tabSize: 10,
+						tolerance: 'pointer',
+						toleranceElement: '> div'
+					});
+					
+		    $j('#status').hide();
+		    
+		    $j("#save").click(function(){
+		    	var mylist = $j('#tree').serializelist();
+				$j.post("/categories/array", mylist);
+				$j("#status").html("Tree changes saved").show();
+				$j.post("/categories/update_graph");
+		    	return false;	
+		    });
+		    $j("#inline").hide();
+		    
+		    $j("#new").click(function()
+		    {
+		      	if ($j(this).val()=="New")
+		   		$j("#new").val("Cancel");
+		       	else
+		    	$j(this).val("New");
+		    	    	
+		       	$j("#inline").toggle();
+		    	$j("#save").toggle();
+		    	
+		        
+		    });
+	});
+	
+	
+	</script>
+	<%=javascript_include_tag :defaults%>
+<% end -%>
+<% title "DRAG AND DROP CATEGORIES"%>
+<div id="status"></div>
+
+
+<div id="lhs_nav">
+<div>
+	 <%=submit_tag "Rearrange Graph", :type =>'button', :id =>"save" %>&nbsp;&nbsp;
+     <%=submit_tag "New", :type =>'button', :id=> "new" %>
+</div>
+
+<div id="inline">
+	<%=render :partial=> "partials/new", :object=> @category%>
+		
+</div>
+
+<ul id="tree">
+	<%= render :partial => 'partials/pretree', :object=> @root %>
+</ul>
+
+</div>
+<div id="rhs_nav_graph" >
+<%=render :partial =>"partials/showgraph"%>
+</div>
+

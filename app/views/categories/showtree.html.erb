@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>SPACE TREE</title>
+		<%= stylesheet_link_tag 'base' %>
+		<%= stylesheet_link_tag 'Spacetree' %>
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+	    <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'%>
+		
+		<script type="text/javascript">
+		$(document).ready(function() {
+		data='<%=@jsondata%>';
+		obj=jQuery.parseJSON(data);
+		//alert(obj);
+		//alert(obj[3].category.name);
+		//alert(obj.length);
+		jsonString=convertJson(obj);
+			});	
+			
+			function cleanNameDesc(obj,c)
+			{
+				obj[c].category.name=(obj[c].category.name).replace(/"/g,'\\"');
+				obj[c].category.description=(obj[c].category.description).replace(/"/g,'\\"');
+				//obj[c].category.name=(obj[c].category.name).replace(/'/g,"\\'");
+				//obj[c].category.description=(obj[c].category.description).replace(/'/g,"\\'");
+				return obj;
+				
+			}
+			
+			function convertJson(obj)
+			{
+				var c=0;
+				cleanNameDesc(obj,c);
+				//alert(obj[c].category.name);
+				
+				//var flag=true;
+				//alert(obj[3].category.parent_id);
+				
+				for(var i=0;i<obj.length;i++)
+				{
+					//var flag=false;
+					//alert(i+"(convertJSON)");
+					//jsonString+="addData"+i;
+					if(obj[i].category.parent_id==null)
+					{
+					//alert("true");
+					jsonString="{"+"\"id\":"+"\""+obj[i].category.id+"\""+","+"\"name\":"+"\""+obj[i].category.name+"<br/>"+obj[i].category.description+"\","+"\"children\":[";
+					findChild(i);
+					
+					break;
+					}		
+				}
+				alert(jsonString);
+				return(jsonString);
+			} 
+			
+			function findChild(i)
+			{
+				//alert("true");
+				var flag=true;
+				//alert(i+"(findChild)");
+				for(var j=0;j<obj.length;j++)
+				{
+					//alert("true child");
+					var k=i;
+					if(obj[j].category.parent_id==obj[k].category.id)
+					{
+						//alert("true true child");
+					if(flag==false)
+				    jsonString+=",";
+				    cleanNameDesc(obj,j);
+					jsonString+="{"+"\"id\":"+"\""+obj[j].category.id+"\""+","+"\"name\":"+"\""+obj[j].category.name+"<br/>"+obj[j].category.description+"\","+"\"children\":[";
+					//alert(jsonString);
+					
+					flag=findChild(j);
+					
+				
+					}
+					
+				
+				}
+				jsonString+="]}";
+				
+				
+				//jsonString+=",";
+				return false;
+				
+			}
+			
+			
+		</script>
+		
+		<%= javascript_include_tag 'jit-yc' %>
+		<%= javascript_include_tag "example1" %>
+		
+		
+	</head>
+	
+	<body onload="init();">
+		<div id="container">
+			
+			<div id="center-container">
+						<div id="infovis">
+							<div id="infovis-canvaswidget" style="position: relative; margin:0 0 -800px 0; z-index:999; height: 800px;">
+								<div id="infovis-label" style="overflow: visible; position: absolute; top: 0pt; left: 0pt; width: 800px; height: 0pt;">
+									
+								</div>
+							</div>
+						</div>
+			</div>
+			
+			<div id="right-container">
+				<h4>Tree Orientation</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="r-left">Left </label></td>
+							<td>
+							<input id="r-left" name="orientation" checked="checked" value="left" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-top">Top </label></td>
+							<td>
+							<input id="r-top" name="orientation" value="top" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-bottom">Bottom </label></td>
+							<td>
+							<input id="r-bottom" name="orientation" value="bottom" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-right">Right </label></td>
+							<td>
+							<input id="r-right" name="orientation" value="right" type="radio">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br/><br/>
+				<h4>Selection Mode</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="s-normal">Normal </label></td>
+							<td>
+							<input id="s-normal" name="selection" checked="checked" value="normal" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="s-root">Set as Root </label></td>
+							<td>
+							<input id="s-root" name="selection" value="root" type="radio">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				
+				
+			</div>
+			
+			<div style="left: 483px;display: none;"  id="log">
+				done
+			</div>
+		</div>
+		</body>
+</html>

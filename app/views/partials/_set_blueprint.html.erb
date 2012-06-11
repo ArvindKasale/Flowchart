@@ -1,0 +1,33 @@
+<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js' %>
+<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'%>
+<%=javascript_include_tag 'jrails'%>
+
+
+<script type="text/javascript">
+	if (document.readyState === "complete")
+	{
+		document.getElementById("edit_blueprint").style.display='none';
+		document.getElementById("delete_blueprint").style.display='none';
+		var ddl=document.getElementById("category_blueprint_id");
+		ddl.onchange=function(){
+		
+		if(ddl.value=='')
+		{
+			document.getElementById("edit_blueprint").style.display='none';
+			document.getElementById("delete_blueprint").style.display='none';
+		}
+		else
+		{
+			document.getElementById("edit_blueprint").style.display='inline';
+			document.getElementById("delete_blueprint").style.display='inline';
+		}
+		}
+	}
+</script>
+<div class="form">
+	
+    <%=select("category","blueprint_id",Blueprint.all.collect{|p| [p.name, p.id]},{:prompt=> "Select Blueprint"})%>
+    <%=observe_field :category_blueprint_id, :url=> {:controller=>:categories, :action=>:change_selected_blueprint}, :with=>"'blueprint_id='+encodeURIComponent(value)"%>
+    <%=link_to_remote "Edit", :url=>{:controller=> :categories, :action=> :edit_blueprint}, :html=>{:id=>"edit_blueprint"}%>
+    <%=link_to_remote("Delete",:html=>{:id=>"delete_blueprint"}, :url=>{:controller=>:blueprints, :action=>:destroy_blueprint}, :confirm=>"Are you sure you want to delete this blueprint")%>
+</div>

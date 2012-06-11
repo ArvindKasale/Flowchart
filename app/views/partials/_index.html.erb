@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>SPACE TREE</title>
+		<%= stylesheet_link_tag 'base' %>
+		<%= stylesheet_link_tag 'Spacetree' %>
+		<%= javascript_include_tag 'jit-yc' %>
+		<%= javascript_include_tag "example1" %>
+	</head>
+	
+	<body onload="init();">
+		<div id="container">
+			<div id="left-container">
+				<div class="text">
+					<h4> Tree Animation </h4>
+					A static JSON Tree structure is used as input for this animation.
+					<br>
+					<br>
+					<b>Click</b> on a node to select it.
+					<br>
+					<br>
+					You can <b>select the tree orientation</b> by changing the select box in the right column.
+					<br>
+					<br>
+					You can <b>change the selection mode</b> from <em>Normal</em> selection (i.e. center the selected node) to <em>Set as Root</em>.
+					<br>
+					<br>
+					<b>Drag and Drop the canvas</b> to do some panning.
+					<br>
+					<br>
+					Leaves color depend on the number of children they actually have.
+				</div>
+				<div id="id-list"></div>
+				<div style="text-align:center;">
+					<a href="http://thejit.org/static/v20/Jit/Examples/Spacetree/example1.code.html">See the Example Code</a>
+				</div>
+			</div>
+			<div id="center-container">
+				<div id="infovis">
+					<div style="position: relative; width: 600px; height: 600px;" id="infovis-canvaswidget">
+						<canvas style="position: absolute; top: 0pt; left: 0pt; width: 600px; height: 600px;" height="600" width="600" id="infovis-canvas"></canvas>
+						<div style="overflow: visible; position: absolute; top: 0pt; left: 0pt; width: 600px; height: 0pt;" id="infovis-label">
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 270px; top: 290px;" class="node" id="node02">
+								0.2
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 141px;" class="node" id="node24">
+								2.4
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 166px;" class="node" id="node222">
+								2.22
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 380px; top: 153px;" class="node" id="node13">
+								1.3
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 199px;" class="node" id="node226">
+								2.26
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 224px;" class="node" id="node237">
+								2.37
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 249px;" class="node" id="node258">
+								2.58
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 380px; top: 224px;" class="node" id="node125">
+								1.25
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 282px;" class="node" id="node266">
+								2.66
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 307px;" class="node" id="node283">
+								2.83
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 332px;" class="node" id="node2104">
+								2.104
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 357px;" class="node" id="node2109">
+								2.109
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 382px;" class="node" id="node2125">
+								2.125
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 380px; top: 332px;" class="node" id="node165">
+								1.65
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 415px;" class="node" id="node2131">
+								2.131
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 490px; top: 440px;" class="node" id="node2138">
+								2.138
+							</div>
+							<div style="position: absolute; width: 60px; height: 17px; cursor: pointer; color: rgb(51, 51, 51); font-size: 0.8em; text-align: center; padding-top: 3px; left: 380px; top: 427px;" class="node" id="node1130">
+								1.130
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="right-container">
+				<h4>Tree Orientation</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="r-left">Left </label></td>
+							<td>
+							<input id="r-left" name="orientation" checked="checked" value="left" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-top">Top </label></td>
+							<td>
+							<input id="r-top" name="orientation" value="top" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-bottom">Bottom </label></td>
+							<td>
+							<input id="r-bottom" name="orientation" value="bottom" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-right">Right </label></td>
+							<td>
+							<input id="r-right" name="orientation" value="right" type="radio">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<h4>Selection Mode</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="s-normal">Normal </label></td>
+							<td>
+							<input id="s-normal" name="selection" checked="checked" value="normal" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="s-root">Set as Root </label></td>
+							<td>
+							<input id="s-root" name="selection" value="root" type="radio">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div style="left: 483px;" id="log">
+				done
+			</div>
+		</div>
+		<div class="jit-autoadjust-label" style="visibility: hidden; position: absolute; width: auto; height: auto;"></div>
+	</body>
+</html>

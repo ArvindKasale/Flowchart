@@ -1,0 +1,21 @@
+<div class="form">
+ <%form_remote_for @category do |f|%>
+         <div>
+         	<%=f.label :name%>
+         	<%=f.text_field :name, :disabled=>check_if_child%>
+         </div>
+         <div>
+         <%= f.label :progress%>
+         <%= f.text_field :progress, :disabled=>check_if_child%>
+         </div> 
+          
+         
+         <div>
+         <%= f.submit 'Save Progress', :disabled=>check_if_child%>  
+         </div>
+         
+        
+         
+         
+ <%end%>
+</div>

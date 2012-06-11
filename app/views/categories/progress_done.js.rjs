@@ -1,0 +1,1 @@
+page[:panel4].replace_html render :partial=>'partials/progress', :object=> @category

@@ -1,0 +1,3 @@
+page[:panel2_title].replace_html "Edit"
+page[:panel2].replace_html render :partial=>'partials/edit'
+

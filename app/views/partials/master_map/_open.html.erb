@@ -1,0 +1,24 @@
+
+		<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js' %>
+		<script type="text/javascript">
+			var selected = null;
+
+			function selectedMap() {
+				var mapSelect = document.getElementById("master_map");
+				//alert(mapSelect);
+				selected = mapSelect.options[mapSelect.selectedIndex].value;
+				//alert(selected);
+				
+				$.post("/master_maps/select_action",selected);	
+			}
+			
+		</script>
+
+
+<h1>Open an existing Strategy Map</h1></br>
+<% form_tag :action=> :dragdrop, :controller=> :categories do  -%> 
+<h2><%=label_tag "Select Strategy Map"%></h2><br />
+<%= select_tag("master_map",options_from_collection_for_select(@master_maps,:id,:name), :onchange=>"selectedMap()")%>
+<%=link_to "Edit",{:action=>:dragdrop, :controller=>:categories}, :id=>"edit"%> <br />
+<%= submit_tag "Open"%>
+<% end -%>

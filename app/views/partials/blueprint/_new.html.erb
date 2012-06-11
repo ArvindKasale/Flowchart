@@ -1,0 +1,23 @@
+<% form_remote_for(@blueprint) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :node_type %><br />
+    <%= f.select :node_type,{"Circle"=>"circle","Rectangle"=>"rectangle","Ellipse"=>"ellipse", "Rounded Rectangle"=>"roundrect"} %>
+  </p>
+  <p>
+    <%= f.label :color %><br />
+    <%= f.select :color,{"Red"=>"#FF0000", "Blue"=>"#0000A0", "Orange"=>"#FFA500", "Black"=>"#000000", "Light Purple"=>"#FF0080", "Grey"=>"#808080", "Olive Green"=>"#10894B"} %>
+  </p>
+  <p>
+    <%= f.label :vision %><br />
+    <%= f.text_field :vision %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>

@@ -1,0 +1,24 @@
+<h1>Listing master_maps</h1>
+
+<table>
+  <tr>
+  	<th>Name</th>
+  	<th>Description</th>
+  	<th>Creator</th>
+  </tr>
+
+<% @master_maps.each do |master_map| %>
+  <tr>
+  	<td><%=h master_map.name%></td>
+  	<td><%=h master_map.description%></td>
+  	<td><%=h master_map.created_by%></td>
+    <td><%= link_to 'Show', master_map %></td>
+    <td><%= link_to 'Edit', edit_master_map_path(master_map) %></td>
+    <td><%= link_to 'Destroy', master_map, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New master_map', new_master_map_path %>

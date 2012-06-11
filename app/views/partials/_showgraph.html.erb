@@ -1,0 +1,118 @@
+<head>
+	<%= javascript_include_tag 'jit-yc' %>
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js' %>
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'%>
+
+	<!-- <%= javascript_include_tag 'jquery.tooltip','jquery.bgiframe.js','jquery.dimensions.js','chili-1.7.pack.js' %>
+	-->
+	<%= javascript_include_tag "example1" %>
+	
+	
+	<%= stylesheet_link_tag 'base','jquery.tooltip' %>
+	<script type="text/javascript">
+	jQuery.noConflict();
+	var $j=jQuery;
+	$j(document).ready(function() {
+	
+	data='<%= @jsondata%>';
+
+	//alert("Came to the script again");
+	obj = $j.parseJSON(data);
+	
+	//alert(obj);
+	//alert(obj[3].category.name);
+	//alert(obj.length);
+	jsonString = convertJson(obj);
+	drawGraph();
+	 
+});
+	function cleanNameDesc(obj, c) {
+		obj[c].category.name = (obj[c].category.name).replace(/"/g, '\\"');
+		obj[c].category.description = (obj[c].category.description).replace(/"/g, '\\"');
+		//obj[c].category.name=(obj[c].category.name).replace(/'/g,"\\'");
+		//obj[c].category.description=(obj[c].category.description).replace(/'/g,"\\'");
+		return obj;
+
+	}
+
+	function convertJson(obj) {
+		var c = 0;
+		cleanNameDesc(obj, c);
+		//alert(obj[c].category.name);
+
+		//var flag=true;
+		jsonString = "{" + "\"id\":" + "\"" + obj[0].category.id + "\"" + "," + "\"name\":" + "\"" + obj[0].category.name+"<br/>"+obj[0].category.progress +" %" +"\"," + "\"children\":[";
+		for(var i = 0; i < obj.length; i++) {
+			//var flag=false;
+			//alert(i+"(convertJSON)");
+			//jsonString+="addData"+i;
+			if(obj[i].category.parent_id == null) {
+				//alert("true");
+				jsonString = "{" + "\"id\":" + "\"" + obj[i].category.id + "\"" + "," + "\"name\":" + "\"" + obj[i].category.name +"<br/>"+obj[i].category.progress+" %" + "\"," + "\"children\":[";
+				findChild(i);
+
+				break;
+			}
+
+		}
+		//alert(jsonString);
+		return (jsonString);
+
+	}
+
+	function findChild(i) {
+		var flag = true;
+		//alert(i+"(findChild)");
+		for(var j = 0; j < obj.length; j++) {
+			var k = i;
+			if(obj[j].category.parent_id == obj[k].category.id) {
+				if(flag == false)
+					jsonString += ",";
+				cleanNameDesc(obj, j);
+				jsonString += "{" + "\"id\":" + "\"" + obj[j].category.id + "\"" + "," + "\"name\":" + "\"" + obj[j].category.name +"<br/>"+obj[j].category.progress +" %"+ "\"," + "\"children\":[";
+				//alert(jsonString);
+
+				flag = findChild(j);
+
+			}
+
+		}
+		jsonString += "]}";
+
+		//jsonString+=",";
+		return false;
+
+	}
+	</script>
+</head>
+<body >
+	<div id="container">
+		<div id="right-container" >
+			<div id="orientation">Orientation<br/>
+				<input id="r-top" name="orientation" checked="checked" value="top" type="radio">
+				<label for="r-top">Top </label><br/>
+				<input id="r-left" name="orientation" value="left" type="radio">
+				<label for="r-left">Left </label><br/>
+				<input id="r-bottom" name="orientation" value="bottom" type="radio">
+				<label for="r-bottom">Bottom </label><br/>
+				<input id="r-right" name="orientation" value="right" type="radio">
+				<label for="r-right">Right </label>
+			</div>
+			<div id="selection">Selection<br/>
+				<input id="s-normal" name="selection" checked="checked" value="normal" type="radio">
+				<label for="s-normal">Normal </label><br/>
+				<input id="s-root" name="selection" value="root" type="radio">
+				<label for="s-root">Set as Root </label><br/>
+				<input type="button" onclick="saveCanvas()" value="Save"/>
+			</div>
+		</div>
+		<div id="center-container">
+			<div id="infovis">
+				
+			</div>
+		</div>
+		<div style="left: 483px; display: none;" id="log">
+			done
+		</div>
+	</div>
+</body>

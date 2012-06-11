@@ -1,0 +1,14 @@
+.tooltip {
+	position: relative;
+    float: left;
+	z-index: 3000;
+	
+	opacity: 0.8;
+    font-family: Arial;
+	-moz-opacity: 0.8;
+	border: none;
+	width: 210px;
+	
+	height: 400px;
+	background-color:#eee; 
+}

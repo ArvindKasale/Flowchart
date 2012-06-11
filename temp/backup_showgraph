@@ -1,0 +1,170 @@
+
+	<head>
+		<title>SPACE TREE</title>
+		<%= stylesheet_link_tag 'base' %>
+		<%= stylesheet_link_tag 'Spacetree' %>
+		
+		
+		<script type="text/javascript">
+		$j(document).ready(function() {
+		data='<%=@jsondata%>';
+		//alert("Came to the script again");
+		obj=$j.parseJSON(data);
+		//alert(obj);
+		//alert(obj[3].category.name);
+		//alert(obj.length);
+		jsonString=convertJson(obj);
+		init();
+			});	
+			
+			function cleanNameDesc(obj,c)
+			{
+				obj[c].category.name=(obj[c].category.name).replace(/"/g,'\\"');
+				obj[c].category.description=(obj[c].category.description).replace(/"/g,'\\"');
+				//obj[c].category.name=(obj[c].category.name).replace(/'/g,"\\'");
+				//obj[c].category.description=(obj[c].category.description).replace(/'/g,"\\'");
+				return obj;
+				
+			}
+			
+			function convertJson(obj)
+			{
+				var c=0;
+				cleanNameDesc(obj,c);
+				//alert(obj[c].category.name);
+				
+				//var flag=true;
+				jsonString="{"+"\"id\":"+"\""+obj[0].category.id+"\""+","+"\"name\":"+"\""+obj[0].category.name+"\","+"\"children\":[";
+				for(var i=0;i<obj.length;i++)
+				{
+					//var flag=false;
+					//alert(i+"(convertJSON)");
+					//jsonString+="addData"+i;
+					if(obj[i].category.parent_id==null)
+					{
+					//alert("true");
+					jsonString="{"+"\"id\":"+"\""+obj[i].category.id+"\""+","+"\"name\":"+"\""+obj[i].category.name+"\","+"\"children\":[";
+					findChild(i);
+					
+					break;
+					}		
+					
+							
+				}
+				//alert(jsonString);
+				return(jsonString);
+				
+			} 
+			
+			function findChild(i)
+			{
+				var flag=true;
+				//alert(i+"(findChild)");
+				for(var j=0;j<obj.length;j++)
+				{
+					var k=i;
+					if(obj[j].category.parent_id==obj[k].category.id)
+					{
+					if(flag==false)
+				    jsonString+=",";
+				    cleanNameDesc(obj,j);
+					jsonString+="{"+"\"id\":"+"\""+obj[j].category.id+"\""+","+"\"name\":"+"\""+obj[j].category.name+"\","+"\"children\":[";
+					//alert(jsonString);
+					
+					flag=findChild(j);
+					
+				
+					}
+					
+				
+				}
+				jsonString+="]}";
+				
+				
+				//jsonString+=",";
+				return false;
+				
+			}
+			
+			
+		</script>
+		
+		<%= javascript_include_tag 'jit-yc' %>
+		<%= javascript_include_tag "example1" %>
+	   <!-- <%=javascript_include_tag :defaults%>-->
+		
+		
+	</head>
+	
+	<body >
+		<div id="container">
+			
+			<div id="center-container">
+						<div id="infovis">
+							<div id="infovis-canvaswidget" style="position: relative; margin:0 0 -800px 0; z-index:999; height: 800px;">
+								<div id="infovis-label" style="overflow: visible; position: absolute; top: 0pt; left: 0pt; width: 800px; height: 0pt;">
+									
+								</div>
+							</div>
+						</div>
+			</div>
+			
+			<div id="right-container">
+				<h4>Tree Orientation</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="r-left">Left </label></td>
+							<td>
+							<input id="r-left" name="orientation" checked="checked" value="left" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-top">Top </label></td>
+							<td>
+							<input id="r-top" name="orientation" value="top" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-bottom">Bottom </label></td>
+							<td>
+							<input id="r-bottom" name="orientation" value="bottom" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="r-right">Right </label></td>
+							<td>
+							<input id="r-right" name="orientation" value="right" type="radio">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<h4>Selection Mode</h4>
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="s-normal">Normal </label></td>
+							<td>
+							<input id="s-normal" name="selection" checked="checked" value="normal" type="radio">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="s-root">Set as Root </label></td>
+							<td>
+							<input id="s-root" name="selection" value="root" type="radio">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				
+				
+			</div>
+			
+			<div style="left: 483px; display: none;" id="log">
+				done
+			</div>
+		</div>
+		
+	</body>
+

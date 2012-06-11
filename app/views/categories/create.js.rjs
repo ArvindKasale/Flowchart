@@ -1,0 +1,12 @@
+page[:tree].replace_html render :partial=>'partials/pretree', :object=> @root
+page[:mainPanel].replace_html render :partial=> 'partials/showgraph'
+page[:panel2_title].replace_html "Edit" 
+page[:panel2].replace_html render :partial=> 'partials/edit'
+
+page[:desktopNav].replace_html "New Category Created"
+
+
+
+
+
+

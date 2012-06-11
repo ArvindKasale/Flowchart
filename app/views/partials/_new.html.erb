@@ -1,0 +1,38 @@
+
+
+<div class="form">
+
+<% form_remote_for @category do |f| %>
+<%= f.error_messages %>
+<div>
+	<%= f.label :name %>
+	<br />
+	<%= f.text_field :name,:class => "textfield"%>
+</div>
+
+<div>
+	<%= f.label :parent_id, "Parent Category" %><br/>
+	<%= f.select :parent_id,  nested_set_options(Category, @category) {|i| "#{'-' * i.level} #{i.name}" },:prompt=> find_if_first %>
+	
+</div>
+<div>
+	<%=hidden_field :category, :blueprint_id, :value=>session[:blueprint_id]%>
+	<%=hidden_field :category, :master_map_id, :value=>session[:current_image]%>
+	
+</div>
+<div>
+	<%=f.label :vision, "Element Type"%>
+	<br/>
+	<%=f.select :vision, {"Normal Element"=>"0","Progress Element"=>"1"} %>
+</div>
+<div>
+	<%= f.label :description %>
+	<br />
+	<%= f.text_area :description, :rows=> 2 %>
+</div>
+<div>
+	<%= f.submit "Submit" %>
+	<%= link_to_remote "Cancel" ,:url=>{:controller=> :categories, :action=> :check_for_cancel},:name=>"cancel"%></div>
+</div>
+<% end %> 
+</div>

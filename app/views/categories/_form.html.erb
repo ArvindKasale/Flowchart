@@ -1,0 +1,25 @@
+<div class="form">
+<% form_remote_for @category do |f| %>
+  
+  <div>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div>
+	<%= f.label :parent_id, "Parent Category" %><br/>
+	<%= f.select :parent_id, nested_set_options(Category, @category) {|i| "#{'-' * i.level} #{i.name}" }, :prompt => "NONE: Make This A Root Category" %> <br />
+  </div>
+  <div>
+  	<%=f.label :vision, "Element Type"%><br />
+  	<%=f.select :vision, {"Normal Element"=>"0","Progress Element"=>"1"} %>
+  </div>
+  <div>
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :rows=> 2 %>
+  </div>
+
+
+  <div><%= f.submit "Submit", :name=>"submit" %>
+  <%= link_to_remote "Cancel" ,:url=>{:action=> :check_for_cancel},:name=>"cancel"%></div>
+<% end %>
+</div>

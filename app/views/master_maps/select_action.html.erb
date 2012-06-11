@@ -1,0 +1,19 @@
+<html>
+	
+	<body>
+		<div id= "container">
+			<div id= "topContainer">
+				<h1 >Welcome <%= findCurrentUser(session[:user_id])%> !!&nbsp;<small><%= link_to "Sign out", :action=>:logout, :controller=>:admin%></small></h1>
+				<h2>Kindly choose an option</h2>
+			</div>
+			<div id="bottomContainer">
+				<div id="newContainer">
+					<%= render :partial=>'partials/master_map/new', :object=>@master_map%>
+				</div>
+				<div id="openContainer">
+					<%= render :partial=>'partials/master_map/open', :object=>@master_maps%>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

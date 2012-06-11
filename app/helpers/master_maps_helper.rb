@@ -1,0 +1,4 @@
+module MasterMapsHelper
+  
+  
+end

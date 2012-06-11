@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  node_type: MyString
+  color: MyString
+  vision: 1
+
+two:
+  name: MyString
+  node_type: MyString
+  color: MyString
+  vision: 1

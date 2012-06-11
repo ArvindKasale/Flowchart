@@ -1,0 +1,26 @@
+<h1>Listing blueprints</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Node type</th>
+    <th>Color</th>
+    <th>Vision</th>
+  </tr>
+
+<% @blueprints.each do |blueprint| %>
+  <tr>
+    <td><%=h blueprint.name %></td>
+    <td><%=h blueprint.node_type %></td>
+    <td><%=h blueprint.color %></td>
+    <td><%=h blueprint.vision %></td>
+    <td><%= link_to 'Show', blueprint %></td>
+    <td><%= link_to 'Edit', edit_blueprint_path(blueprint) %></td>
+    <td><%= link_to 'Destroy', blueprint, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New blueprint', new_blueprint_path %>

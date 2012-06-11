@@ -1,0 +1,4 @@
+page[:mainPanel].replace_html render :partial=> 'partials/showgraph'
+page[:tree].replace_html render :partial=>'partials/pretree', :object=> @root
+page[:desktopNav].replace_html "Category Deleted."
+

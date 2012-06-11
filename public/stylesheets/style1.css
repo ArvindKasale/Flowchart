@@ -1,0 +1,49 @@
+#container
+{
+	width: 1000px;
+	height: 500px;
+	border: solid 2px;
+	background-color: #F2F2F2;
+	
+}
+
+#topContainer
+{
+	position: relative;
+	width: 100%;
+	height: 100px;
+	background-color: #718ba6;
+	border: solid 2px;
+	float: left;	
+	text-align: center;
+	
+	font-size: 14px;
+}
+
+#bottomContainer
+{
+	position: relative;
+	width: 100%;
+	height: 500px;
+	float: left;
+	padding: 5px;
+	font-size: 10px;
+}
+#newContainer
+{
+	position: relative;
+	width:40%;
+	height:70%;
+	float: left;
+	padding: 5px;
+	
+}
+#openContainer
+{
+	position: relative;
+	width:40%;
+	height:70%;
+	float: right;
+	padding: 5px;
+	
+}
