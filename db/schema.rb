@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20111214063105) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "progress",      :default => 0
-    t.integer  "vision"
+    t.integer  "vision",        :default => 0
     t.integer  "blueprint_id"
     t.integer  "master_map_id"
   end
